@@ -89,7 +89,7 @@
     }
 
     // Отправляем команду через API Blynk
-    fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_AUTH_TOKEN}&pin=${VIRTUAL_PIN}&value=${VALUE}`)
+    fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_AUTH_TOKEN}&pin=${VIRTUAL_PIN}&value=1`)
     .then(() => {
       console.log("Команда отправлена");
       gateState = newState;  // Обновляем состояние ворот

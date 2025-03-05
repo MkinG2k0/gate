@@ -3,7 +3,7 @@
   "name": "Управление воротами",
   "short_name": "Ворота",
   "description": "Приложение для управления воротами через Blynk",
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление воротами</title>
+    <style>
+				body {
+						font-family: Arial, sans-serif;
+						text-align: center;
+						margin: 50px;
+				}
+				button {
+						font-size: 20px;
+						padding: 10px 20px;
+						cursor: pointer;
+				}
+    </style>
+</head>
+<body>
+<h1>Управление воротами</h1>
+<button onclick="sendCommand()">Открыть ворота</button>
+
+<script>
+	const BLYNK_AUTH_TOKEN = "xu-K-6C7v3ztwLeWI0fDWYgmvQlabNOm"; // Убедись, что токен правильный!
+	const VIRTUAL_PIN = "V1";  // Укажи виртуальный пин
+
+	function sendCommand() {
+		const VALUE = 1;
+
+		fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_AUTH_TOKEN}&pin=${VIRTUAL_PIN}&value=${VALUE}`)
+	}
+</script>
+</body>
+</html>

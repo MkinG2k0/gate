@@ -67,22 +67,18 @@
 
   // Функция для отправки команды на Blynk
   window.sendCommand = function() {
-    let VALUE;
     let newState;
 
     // Логика переключения состояния ворот
     if (gateState === 'stopped') {
-      VALUE = 1;  // Открыть ворота
       newState = 'open';
       document.body.style.backgroundColor = '#32CD32';  // Зеленый (открыты)
       document.getElementById('status').textContent = 'Открыты ворота';
     } else if (gateState === 'open') {
-      VALUE = 0;  // Закрыть ворота
       newState = 'closed';
       document.body.style.backgroundColor = '#FF6347';  // Красный (закрыты)
       document.getElementById('status').textContent = 'Закрыты ворота';
     } else if (gateState === 'closed') {
-      VALUE = -1; // Остановить ворота
       newState = 'stopped';
       document.body.style.backgroundColor = '#005d85';  // Желтый (остановлены)
       document.getElementById('status').textContent = 'Остановлены ворота';

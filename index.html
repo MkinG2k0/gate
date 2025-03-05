@@ -8,34 +8,83 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 50px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 1s ease-in-out;
     }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #fff;
+    }
+
     button {
       font-size: 20px;
-      padding: 10px 20px;
+      padding: 15px 30px;
       cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
   </style>
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="icon.png" sizes="1920x1920" type="image/png">
 </head>
-<body>
-<h1>Управление воротами</h1>
-<button onclick="sendCommand()">Открыть ворота</button>
-upd
+<body onclick="sendCommand()">
+<p id="status">Закрыты ворота</p>
+
 <script type="module">
   // Используем токен из переменной окружения VITE_BLYNK_AUTH_TOKEN
   const BLYNK_AUTH_TOKEN = import.meta.env.VITE_BLYNK_AUTH_TOKEN;
   const VIRTUAL_PIN = "V1";
 
-  // Определяем функцию sendCommand в глобальной области видимости
-  window.sendCommand = function() {
-    const VALUE = 1;
+  let isOpen = false; // Состояние ворот (открыты или закрыты)
 
+  // Функция для отправки команды на Blynk
+  window.sendCommand = function() {
+    const VALUE = isOpen ? 0 : 1;  // Если ворота открыты, то закрыть, иначе открыть
+
+    // Изменяем фон при нажатии на кнопку
+    document.body.style.backgroundColor = isOpen ? '#FF6347' : '#32CD32'; // Красный (закрыты) и зеленый (открыты)
+
+    // Обновляем текст в зависимости от состояния
+    document.getElementById('status').textContent = isOpen ? 'Закрыты ворота' : 'Открыты ворота';
+
+    // Отправляем команду через API Blynk
     fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_AUTH_TOKEN}&pin=${VIRTUAL_PIN}&value=${VALUE}`)
-    .then(() => console.log("Команда отправлена"))
-    .catch(error => console.error("Ошибка:", error));
+    .then(() => {
+      console.log("Команда отправлена");
+      isOpen = !isOpen;  // Переключаем состояние ворот
+    })
+    .catch(error => {
+      console.error("Ошибка:", error);
+    });
   };
+
 </script>
 </body>
 </html>
